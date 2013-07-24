@@ -24,6 +24,14 @@ describe GoogleHomePage do
       expect(@google_home.title).to eq 'Google'       
     end
 
+    it "should enter a search term and select the third auto-complete" do
+      @google_home.search_term = "selenium"
+      @google_home.select_auto_complete_by_index(2)
+
+      full_search_term =  @google_home.auto_complete_suggestions[2]
+      # @google_home.search_result_links[0].text.upcase 
+    end
+
     after(:each) do 
       @browser.quit
     end
