@@ -10,14 +10,16 @@ class GoogleHomePage
   divs(:auto_complete, class: "gsq_a")
   # div(:single_auto_complete, class: "gsq_a")
   # link(:single_result_link, xpath: "//div[@class='rc']/h3/a")   
-  links(:search_result_link, xpath: "//div[@class='rc']/h3/a")   
+  links(:search_result_link, xpath: "//div[@class='rc']/h3/a")
+  table(:auto_complete_table, css: "table.gstl_0.gssb_c")
 
-  def search_with(keyword)
-    self.search_term = keyword
-    self.google_instant_search
-  end
+  # def search_with(keyword)
+  #   self.search_term = keyword
+  #   self.google_instant_search
+  # end
 
   def auto_complete_suggestions
+    auto_complete_table_element.when_visible
     auto_complete_elements
   end
 
@@ -25,8 +27,7 @@ class GoogleHomePage
     search_result_link_elements
   end
 
-  def select_auto_complete_by_index(index)
-    # single_auto_complete.when_present
+  def select_auto_complete_by_index(index)    
     select_element_by_index(index, auto_complete_suggestions)
   end
 

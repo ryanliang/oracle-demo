@@ -24,16 +24,16 @@ describe GoogleHomePage do
       @google_home.search_term = "selenium"      
       @google_home.select_auto_complete_by_index(2)
       @google_home.click_search_result_link_by_index(0)
+
+      expect(@google_home_page.current_url).to eq("docs.seleniumhq.org/projects/ide") # use browser url instead
     end
 
     it "should enter a partial search term and select auto-complete suggestion with keyword" do
-      keyword = "webdriver"
       @google_home.search_term = "selenium"
-      @google_home.select_auto_complete_by_keyword(keyword)
-      @google_home.click_search_result_link_by_keyword(keyword)
+      @google_home.select_auto_complete_by_keyword("webdriver")      
+      @google_home.click_search_result_link_by_keyword("documentation")
       
-      
-      
+      expect(@google_home_page.current_url).to eq("http://docs.seleniumhq.org/") # use browser url instead
     end
 
     after(:each) do 
