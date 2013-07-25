@@ -1,4 +1,5 @@
 $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), "../pages/google", "./"))
+
 # Write a program using Selenium Webdriver
 # Navigates to Google.com
 # Type in a partial search term and complete it using google suggestions
@@ -12,24 +13,27 @@ require 'google_home_page'
 
 describe GoogleHomePage do 
 
-  context "Javascript Enabled" do 
+  context "use partial search term" do 
 
     before(:each) do
       @browser = Selenium::WebDriver.for :firefox
       @google_home = GoogleHomePage.new(@browser, true)
     end
 
-    it "should be loaded successfully" do
-      expect(@google_home.current_url).to eq 'http://www.google.com/'
-      expect(@google_home.title).to eq 'Google'       
+    it "should select the third auto-complete suggestion and click on the top search result link" do
+      @google_home.search_term = "selenium"      
+      @google_home.select_auto_complete_by_index(2)
+      @google_home.click_search_result_link_by_index(0)
     end
 
-    it "should enter a search term and select the third auto-complete" do
+    it "should enter a partial search term and select auto-complete suggestion with keyword" do
+      keyword = "webdriver"
       @google_home.search_term = "selenium"
-      @google_home.select_auto_complete_by_index(2)
-
-      full_search_term =  @google_home.auto_complete_suggestions[2]
-      # @google_home.search_result_links[0].text.upcase 
+      @google_home.select_auto_complete_by_keyword(keyword)
+      @google_home.click_search_result_link_by_keyword(keyword)
+      
+      
+      
     end
 
     after(:each) do 
