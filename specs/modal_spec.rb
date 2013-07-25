@@ -1,60 +1,45 @@
 $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), "../pages/modal", "./"))
+$LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), "./", "./"))
 
 
 require 'selenium-webdriver'
 require 'parent_page'
 require 'child_page'
+require 'spec_helper'
 
 
 describe 'ModalApp' do 
+  let(:browser) {firefox}
 
-  context "use partial search term" do 
+  context "handle modal windows" do 
 
     before(:each) do
-      @browser = Selenium::WebDriver.for :firefox
-      @parent = ParentPage.new(@browser, true)
+      @parent = ParentPage.new(browser, true)
     end
 
-    it "should open two modal windows and close them all" do 
-      parent_win_handle = @browser.window_handle
+    it "should open two modal windows and close them all" do
+
       @parent.modal_dialog  do
-        @parent.open_modal_popup      
+        @parent.open_modal_popup
       end
 
-      # @parent.attach_to_window(title: "Child Window")
-      # @parent.modal_dialog  do
-      #   @parent.open_modal_popup      
-      # end
-
-      @child1 = ChildPage.new(@browser)
+      @child = ChildPage.new(@browser)
       
-      @child1.attach_to_window(title: "Child Window") do
-        @parent.modal_dialog  do
-          p @child1.html
-          @child1.open_modal_popup
-        end
-        # @child1.close
+      @child.attach_to_window(title: "Child Window") do
+        @child.new_modal_dialog('_blank') do
+          @child.open_modal_popup
+        end        
       end
-      # # end
-      # parent_win_handle = @browser.window_handle
-      # p parent_win_handle
-      # @parent.open_modal_popup
 
-      
-      
-
-      # @child1 = ChildPage.new(@browser)
-      # @child1.open_modal_popup
-      # @browser.switch_to "Child Window"
-
-      # @child1 = ChildPage.new(@browser)
-      # @child1.open_modal_popup
+      unless @child.attach_to_window(title: "Child Window").nil?
+        @child.attach_to_window(title: "Child Window")
+        @child.close
+      end
 
     end
-
     
     after(:each) do 
-      # @browser.quit
+      # tear down here.
     end
   end
   
