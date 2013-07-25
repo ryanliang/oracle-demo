@@ -21,11 +21,15 @@ describe GoogleHomePage do
     end
 
     it "should select the third auto-complete suggestion and click on the top search result link" do
-      @google_home.search_term = "selenium"      
+      @google_home.search_term = "selenium"
       @google_home.select_auto_complete_by_index(2)
       @google_home.click_search_result_link_by_index(0)
 
-      expect(@google_home_page.current_url).to eq("docs.seleniumhq.org/projects/ide") # use browser url instead
+      @google_home.wait_until do 
+        @google_home.title =~ /Selenium/
+      end
+
+      expect(@google_home.current_url).to eq("http://docs.seleniumhq.org/projects/ide/")
     end
 
     it "should enter a partial search term and select auto-complete suggestion with keyword" do
