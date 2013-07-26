@@ -1,0 +1,13 @@
+test1:
+  search_term: 'selenium'
+  auto_complete_index: 2
+  auto_complete_keyword: ''
+  result_link_index: 0
+  expected_url: "http://docs.seleniumhq.org/projects/ide/"
+
+test2:
+  search_term: 'selenium'
+  auto_complete_index: -1
+  auto_complete_keyword: 'webdriver'
+  result_link_index: 2
+  expected_url: "http://docs.seleniumhq.org/"
