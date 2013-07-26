@@ -21,11 +21,10 @@ Please ensure you have the following dependencies:
 #### Running the demo:
 There are two specs one for the Google exercise and one for the Modal exercis.
 
-To run both spec:
+ - To run both spec:
   ```bundle exec rake spec```
     
-To run only the Google spec:
+ - To run only the Google spec:
   ```bundle exec rake spec SPEC=specs/google_spec.rb```
-  
-To run only the Modal spec:
+ - To run only the Modal spec:
   ```bundle exec rake spec SPEC=specs/modal_spec.rb```
