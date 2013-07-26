@@ -14,16 +14,16 @@ describe 'ModalApp' do
   context "handle modal windows" do 
 
     before(:each) do
-      @parent = ParentPage.new(browser, true)
+      # set up here
     end
 
     it "should open two modal windows and close them all" do
-
+      @parent = ParentPage.new(browser, true)
       @parent.modal_dialog  do
         @parent.open_modal_popup
       end
 
-      @child = ChildPage.new(@browser)
+      @child = ChildPage.new(browser)
       
       @child.attach_to_window(title: "Child Window") do
         @child.new_modal_dialog('_blank') do
@@ -31,15 +31,14 @@ describe 'ModalApp' do
         end        
       end
 
-      unless @child.attach_to_window(title: "Child Window").nil?
+      2.times do
         @child.attach_to_window(title: "Child Window")
         @child.close
       end
-
     end
     
     after(:each) do 
-      # tear down here.
+      browser.quit
     end
   end
   

@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'page-object'
 
 class GoogleHomePage
@@ -9,21 +10,15 @@ class GoogleHomePage
   button(:google_instant_search, id: 'gbqfb')
   divs(:auto_complete, class: "gsq_a")
   div(:result_column, id: "center_col")
-  link(:single_result_link, xpath: "//div[@class='rc']/h3/a")   
   links(:search_result_link, xpath: "//div[@class='rc']/h3/a")
   table(:auto_complete_table, css: "table.gstl_0.gssb_c")
-
-  # def search_with(keyword)
-  #   self.search_term = keyword
-  #   self.google_instant_search
-  # end
 
   def auto_complete_suggestions
     auto_complete_elements if auto_complete_table_element.when_visible    
   end
 
   def search_result_links
-    search_result_link_elements if result_column_element.when_visible
+    search_result_link_elements if result_column_element.when_present
   end
 
   def select_auto_complete_by_index(index)
@@ -32,27 +27,21 @@ class GoogleHomePage
 
   def select_auto_complete_by_keyword(keyword)
     select_element_by_keyword(keyword,auto_complete_suggestions)
+    # ensure search results are returned by ajax
+    self.wait_until do
+      self.title.downcase.include? keyword.downcase
+    end
   end
 
   def click_search_result_link_by_index(index)
+    previous_url = self.current_url
     select_element_by_index(index, search_result_links)
+    self.wait_until do # ensure page is loaded
+      self.current_url != previous_url
+    end
   end
 
-  def click_search_result_link_by_keyword(keyword)
-    # search_result_links.each do |link|
-    #   p link.text
-    # end
-    # single_result_link_element.when_visible
-    # select_element_by_keyword(keyword, search_result_links)
-
-    # search_result_links.each do |link_element|
-    #   # p link_element.element
-    # end
-    PageObject::Accessors::link(:link_with_keyword, text: keyword )
-    link_with_keyword
-  end
-  
-  private
+private
 
   def select_element_by_index(index, elements)
     elements[index].click
@@ -60,9 +49,7 @@ class GoogleHomePage
 
   def select_element_by_keyword(keyword, elements)   
     elements.each do |element|
-      if element.text.upcase.include? keyword.upcase
-        element.click 
-      end
+      element.click if element.text.upcase.include? keyword.upcase
     end
   end
 
