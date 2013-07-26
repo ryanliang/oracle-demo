@@ -24,7 +24,7 @@ describe GoogleHomePage do
       @google_home = GoogleHomePage.new(browser, true)
     end
 
-    it "should select the third auto-complete suggestion and click on the top search result link" do
+    it "should select auto-complete suggestion by index and click on the top search result link" do
       @google_home.search_term = "selenium"
       @google_home.select_auto_complete_by_index(2)
       @google_home.click_search_result_link_by_index(0)
@@ -32,7 +32,7 @@ describe GoogleHomePage do
       expect(@google_home.current_url).to eq("http://docs.seleniumhq.org/projects/ide/")
     end
 
-    it "should enter a partial search term and select auto-complete suggestion with keyword" do
+    it "should select auto-complete suggestion with keyword and click on the third link" do
       @google_home.search_term = "selenium"      
       @google_home.select_auto_complete_by_keyword("webdriver")
       @google_home.click_search_result_link_by_index(2)
