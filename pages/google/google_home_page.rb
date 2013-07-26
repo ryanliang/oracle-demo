@@ -22,7 +22,7 @@ class GoogleHomePage
   end
 
   def select_auto_complete_by_index(index)
-    select_element_by_index(index, auto_complete_suggestions)
+    auto_complete_suggestions[index].click
   end
 
   def select_auto_complete_by_keyword(keyword)
@@ -35,17 +35,13 @@ class GoogleHomePage
 
   def click_search_result_link_by_index(index)
     previous_url = self.current_url
-    select_element_by_index(index, search_result_links)
+    search_result_links[index].click
     self.wait_until do # ensure page is loaded
       self.current_url != previous_url
     end
   end
 
 private
-
-  def select_element_by_index(index, elements)
-    elements[index].click
-  end
 
   def select_element_by_keyword(keyword, elements)   
     elements.each do |element|

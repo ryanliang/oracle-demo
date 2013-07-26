@@ -1,11 +1,11 @@
-test1:
+auto_complete_by_index_test:
   search_term: 'selenium'
   auto_complete_index: 2
   auto_complete_keyword: ''
   result_link_index: 0
   expected_url: "http://docs.seleniumhq.org/projects/ide/"
 
-test2:
+auto_complete_by_keyword_test:
   search_term: 'selenium'
   auto_complete_index: -1
   auto_complete_keyword: 'webdriver'
