@@ -35,6 +35,7 @@ class GoogleHomePage
 
   def click_search_result_link_by_index(index)
     previous_url = self.current_url
+    sleep 1
     search_result_links[index].click
     self.wait_until do # ensure page is loaded
       self.current_url != previous_url
