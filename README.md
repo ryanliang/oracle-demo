@@ -1,7 +1,7 @@
 A quick demo for using selenium-webdriver
 =========================================
 
-This demo contains two exercies:
+This demo contains two exercises:
   - Google, which performs a google search, selects the auto complete and clicks on the result link.
   - Modal, which opens two modal windows and closes them all after.
   
@@ -19,7 +19,7 @@ Please ensure you have the following dependencies:
     ```bundle install```
 
 #### Running the demo:
-There are two specs one for the Google exercise and one for the Modal exercis.
+There are two specs one for the Google exercise and one for the Modal exercise.
 
  - To run both spec:
   ```bundle exec rake spec```
