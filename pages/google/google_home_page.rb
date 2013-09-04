@@ -42,6 +42,13 @@ class GoogleHomePage
     end
   end
 
+# driver.action.key_down(:shift).
+#               click(element).
+#               click(second_element).
+#               key_up(:shift).
+#               drag_and_drop(element, third_element).
+#               perform
+
 private
 
   def select_element_by_keyword(keyword, elements)   

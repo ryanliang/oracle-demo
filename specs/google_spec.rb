@@ -12,6 +12,7 @@ $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), "./", "./"
 
 require 'selenium-webdriver'
 require 'google_home_page'
+require 'drag_and_drop_page'
 require 'spec_helper'
 require 'yaml'
 
@@ -21,33 +22,49 @@ describe GoogleHomePage do
   context "use partial search term" do 
 
     before(:each) do
-      @google_home = GoogleHomePage.new(browser, true)
+      # @google_home = GoogleHomePage.new(browser, true)
+      @drag_drop_page = DragAndDropPage.new(browser, true)
     end
 
-    it "should select auto-complete suggestion by index and click on the top search result link" do
+    # it "should select auto-complete suggestion by index and click on the top search result link" do
 
-      data = YAML.load_file("#{Dir.pwd}/test_data/google.yml")['auto_complete_by_index_test']
+    #   data = YAML.load_file("#{Dir.pwd}/test_data/google.yml")['auto_complete_by_index_test']
 
-      @google_home.search_term = data['search_term']
-      @google_home.select_auto_complete_by_index(data['auto_complete_index'])
-      @google_home.click_search_result_link_by_index(data['result_link_index'])
+    #   @google_home.search_term = data['search_term']
+    #   @google_home.select_auto_complete_by_index(data['auto_complete_index'])
+    #   @google_home.click_search_result_link_by_index(data['result_link_index'])
 
-      expect(@google_home.current_url).to eq(data['expected_url'])
-    end
+    #   expect(@google_home.current_url).to eq(data['expected_url'])
+    # end
 
-    it "should select auto-complete suggestion with keyword and click on the third link" do
+    # it "should select auto-complete suggestion with keyword and click on the third link" do
       
-      data = YAML.load_file("#{Dir.pwd}/test_data/google.yml")['auto_complete_by_keyword_test']
+    #   data = YAML.load_file("#{Dir.pwd}/test_data/google.yml")['auto_complete_by_keyword_test']
 
-      @google_home.search_term = data['search_term']     
-      @google_home.select_auto_complete_by_keyword(data['auto_complete_keyword'])
-      @google_home.click_search_result_link_by_index(data['result_link_index'])
+    #   @google_home.search_term = data['search_term']     
+    #   @google_home.select_auto_complete_by_keyword(data['auto_complete_keyword'])
+    #   @google_home.click_search_result_link_by_index(data['result_link_index'])
 
-      expect(@google_home.current_url).to eq(data['expected_url'])
+    #   expect(@google_home.current_url).to eq(data['expected_url'])
+    # end
+
+     it "should drag and drop" do
+      
+
+      @drag_drop_page.drag_and_drop_div_by(20, 30)
+      # data = YAML.load_file("#{Dir.pwd}/test_data/google.yml")['auto_complete_by_keyword_test']
+
+
+
+      # @google_home.search_term = data['search_term']     
+      # @google_home.select_auto_complete_by_keyword(data['auto_complete_keyword'])
+      # @google_home.click_search_result_link_by_index(data['result_link_index'])
+
+      # expect(@google_home.current_url).to eq(data['expected_url'])
     end
 
     after(:each) do 
-      browser.quit
+      # browser.quit
     end
   end
   
