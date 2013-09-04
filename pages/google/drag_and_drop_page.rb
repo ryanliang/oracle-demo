@@ -1,6 +1,6 @@
 # encoding: utf-8
 require 'page-object'
-<<<<<<< HEAD
+
 
 class DragAndDropPage
   include PageObject
